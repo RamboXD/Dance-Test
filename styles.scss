@@ -1,0 +1,273 @@
+// Vars
+$white: #f3f3f3;
+$black: #1d1f20;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  color: $black;
+  background: $white;
+  font-family: "Droid Serif", serif;
+  transition: color 0.5s ease-out, background 0.5s ease-out;
+  &.dark-mode {
+    color: $white;
+    background: $black;
+    -webkit-font-smoothing: antialiased;
+    .type-tester > *:focus,
+    .type-tester > *:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .controls {
+      .show-lines {
+        &:hover,
+        &.-active {
+          .lines-indicator {
+            background: $white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.section-title {
+  top: 0;
+  left: 0;
+  margin: 0;
+  opacity: 0.25;
+  font-size: 14px;
+  font-weight: 400;
+  padding-top: 14px;
+  position: absolute;
+}
+
+header {
+  z-index: 1;
+  margin: 30px 60px;
+  position: relative;
+
+  .header-top {
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+
+  h1 {
+    float: left;
+    line-height: 1;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 30px 0 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p.instructions {
+    margin: 0;
+    float: right;
+    line-height: 3;
+    font-size: 10px;
+    font-style: italic;
+  }
+}
+
+.controls {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid;
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  > div {
+    float: right;
+    p {
+      display: inline-block;
+    }
+  }
+
+  .section-title {
+    top: auto;
+    float: left;
+    padding-top: 6px;
+    position: relative;
+  }
+
+  p {
+    margin: 0;
+    line-height: 2;
+    font-size: 14px;
+  }
+
+  p.styles {
+    float: left;
+    .bold {
+      font-weight: 700;
+    }
+    .italic {
+      font-style: italic;
+    }
+    span {
+      cursor: pointer;
+    }
+    span:not(.-active) {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  p.color-mode {
+    float: left;
+    margin-left: 30px;
+    span {
+      cursor: pointer;
+    }
+    span:not(.-active) {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .show-lines {
+    cursor: pointer;
+    margin-left: 30px;
+    .lines-indicator {
+      width: 8px;
+      height: 8px;
+      border: 1px solid;
+      position: relative;
+      border-radius: 50%;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.2s ease-out;
+    }
+    &:hover,
+    &.-active {
+      .lines-indicator {
+        background: $black;
+      }
+    }
+  }
+}
+
+.carousel {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  &:focus {
+    outline: none;
+  }
+}
+
+.flickity-slider {
+  min-height: 400px;
+}
+
+.carousel-cell {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  background-size: cover;
+  transition: filter 0.5s ease-out, opacity 0.5s ease-out;
+
+  .-inner {
+    opacity: 1;
+    margin: auto;
+    transition: opacity 1s ease-out 0.5s;
+  }
+
+  p {
+    margin: 0;
+    font-size: 25vw;
+    line-height: 0.75;
+    position: relative;
+    transform-origin: center center;
+    transition: transform 0.5s ease-out;
+    @media screen and (min-width: 1200px) {
+      font-size: 300px;
+    }
+    &::before {
+      top: 0;
+      opacity: 0;
+      left: -5vw;
+      right: -5vw;
+      z-index: -1;
+      content: "";
+      bottom: 0.35vw;
+      position: absolute;
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+      transition: opacity 0.5s ease-out;
+    }
+    &::after {
+      top: 50%;
+      left: -5vw;
+      opacity: 0;
+      right: -5vw;
+      content: "";
+      z-index: -1;
+      height: 4px;
+      position: absolute;
+      border-top: 4px dashed;
+      transform: translateY(-4px);
+      transition: opacity 0.5s ease-out;
+    }
+    &.lines-shown {
+      &::before,
+      &::after {
+        opacity: 0.25;
+      }
+    }
+  }
+
+  &:not(.is-selected) {
+    opacity: 0.25;
+    filter: blur(5px);
+    p {
+      transform: scale(0.5);
+    }
+  }
+}
+
+.type-tester {
+  padding: 50px 0;
+  margin: 30px 60px;
+  position: relative;
+  border-top: 1px solid;
+
+  > *:focus,
+  > *:hover {
+    outline: none;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 34px;
+    max-width: 600px;
+  }
+  p {
+    font-size: 18px;
+    max-width: 600px;
+    line-height: 1.25;
+  }
+}
